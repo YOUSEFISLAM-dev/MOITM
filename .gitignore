@@ -1,0 +1,40 @@
+# Server runtime files
+logs/
+crash-reports/
+world/
+world_nether/
+world_the_end/
+
+# Server specific
+server.jar
+fabric-server-launch.jar
+eula.txt
+banned-ips.json
+banned-players.json
+ops.json
+whitelist.json
+usercache.json
+usernamecache.json
+
+# Temporary files
+*.tmp
+*.log
+*.lock
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+backups/
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# Geyser specific
+floodgate_key.pem
+dump_cache/
+locale/

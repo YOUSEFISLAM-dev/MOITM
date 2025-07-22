@@ -1,0 +1,127 @@
+# Geyser Configuration File for Bedrock Support
+# https://github.com/GeyserMC/Geyser
+
+# The IP address that will be used to connect to the Java server
+remote:
+  # The IP address of your Minecraft: Java Edition server
+  address: 127.0.0.1
+  # The port of your Minecraft: Java Edition server
+  port: 25565
+  # Authentication type. Can be offline, online, or floodgate (see https://github.com/GeyserMC/Geyser/wiki/Floodgate).
+  auth-type: floodgate
+
+# Configure how the bedrock server is hosted.
+bedrock:
+  # The IP address that will be used for Bedrock players
+  address: 0.0.0.0
+  # The port that will be used for Bedrock players
+  port: 19132
+  # Some hosting services change your Java port everytime you start the server and require the same port to be used for Bedrock.
+  clone-remote-port: false
+  # The MOTD that will be displayed to Bedrock players
+  motd1: "MOITM Fabric Server"
+  motd2: "Cross-platform Minecraft with Geyser!"
+  # The Server Name that will be displayed to Bedrock players
+  server-name: "MOITM Server"
+
+# Floodgate handles authentication between Geyser and the server you are connecting to.
+floodgate:
+  # See https://github.com/GeyserMC/Floodgate/wiki/Features#prefix for more information
+  username-prefix: "."
+  # Path to key file relative to Geyser folder
+  key-file-path: floodgate_key.pem
+
+# For online mode authentication type.
+usernames:
+
+# Advanced options - modify only if you know what you are doing!
+
+# How many scoreboard packets per second to send. A lower number means less lag, but a less up-to-date scoreboard.
+scoreboard-packet-threshold: 20
+
+# Allow third party capes to be visible. Currently allowing:
+# OptiFine capes, LabyMod capes, 5Zig capes and MinecraftCapes
+allow-third-party-capes: true
+
+# Allow third party deadmau5 ears to be visible. Currently allowing:
+# MinecraftCapes
+allow-third-party-ears: false
+
+# Allow a fake cooldown indicator to be sent. Bedrock players do not see a cooldown as they do not have one.
+show-cooldown: true
+
+# Controls if coordinates are shown to players.
+show-coordinates: true
+
+# The default locale if we dont have the one the client requested. Uncomment to not use the default system language.
+# default-locale: en_us
+
+# Configures if chunk caching should be enabled or not
+cache-chunks: true
+
+# Specify how many days images will be cached to disk to save downloading them from the internet.
+cache-images: 0
+
+# Allows custom skulls to be displayed. Keeping them enabled may cause a performance decrease on older/weaker devices.
+allow-custom-skulls: true
+
+# Whether to add (at this time) the furnace minecart as a separate item in the game, which normally does not exist in Bedrock Edition.
+add-non-bedrock-items: true
+
+# Bedrock prevents building and displaying blocks above Y127 in the Nether - 
+# enabling this config option works around that by changing the Nether dimension ID to the End ID
+above-bedrock-nether-building: false
+
+# Force clients to load all resource packs if there are any
+# Useful if you want to use a texture pack for all players to have a consistent experience
+force-resource-packs: true
+
+# Allows Xbox achievements to be unlocked.
+xbox-achievements-enabled: false
+
+# Generate a new UUID for each player - useful if using Floodgate with a server that filters duplicate UUIDs
+generate-player-uuids: false
+
+# bStats is a plugin which collects anonymous statistics about Geyser usage. You can learn more about bStats at https://bstats.org/.
+# Disabling this will stop any data collection.
+metrics:
+  enabled: true
+  # UUID of server, don't change!
+  uuid: 00000000-0000-0000-0000-000000000000
+
+# ADVANCED OPTIONS - DO NOT TOUCH UNLESS YOU KNOW WHAT YOU ARE DOING
+# DO NOT EDIT IF USING PTERODACTYL SERVER SOFTWARE
+
+# Geyser updates
+update-branch: master
+
+# The folder to store Geyser data
+data-folder: ""
+
+# If the debug mode is enabled, Geyser will provide more verbose output.
+debug-mode: false
+
+# Thread pool size
+general-thread-pool: 32
+
+# Whether Geyser should attempt to disable compression for Bedrock players
+disable-compression: true
+
+ping-passthrough:
+  # Relay the MOTD, player count, and max player count from the remote server to Bedrock players.
+  enabled: false
+  # The IP address and port of the server to ping to get the MOTD. This should be the same as "remote"
+  ping-ip: ""
+  ping-port: 25565
+
+# Maximum amount of players that can connect
+max-players: 100
+
+# If debug mode is enabled, packets will be debugged
+debug-mode: false
+
+# Thread pool size for the number of threads that will be used for processing packets
+general-thread-pool: 32
+
+# Whether Geyser should shutdown automatically when it fails to connect to the remote server
+shutdown-on-fail: true

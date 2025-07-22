@@ -1,0 +1,47 @@
+MOITM Minecraft Server - Required Mods Download Guide
+====================================================
+
+Please download the following mods and place them in this 'mods' folder:
+
+CORE MODS (Required):
+1. Fabric API (Latest 1.21.7)
+   URL: https://modrinth.com/mod/fabric-api/versions?g=1.21
+   
+2. YACL (Yet Another Config Lib) - Latest 1.21.7
+   URL: https://modrinth.com/mod/yacl/versions?g=1.21
+
+UTILITY MODS:
+3. Resourceful Lib - Latest 1.21.7
+   URL: https://modrinth.com/mod/resourceful-lib/versions?g=1.21
+
+CONTENT MODS:
+4. Advanced Netherite - Latest 1.21.7
+   URL: https://modrinth.com/mod/advanced-netherite/versions?g=1.21
+
+VERSION COMPATIBILITY MODS:
+5. ViaVersion - Latest
+   URL: https://www.spigotmc.org/resources/viaversion.19254/
+   
+6. ViaBackwards - Latest  
+   URL: https://www.spigotmc.org/resources/viabackwards.27448/
+   
+7. ViaFabric - Latest for 1.21
+   URL: https://modrinth.com/mod/viafabric/versions
+
+BEDROCK SUPPORT MODS:
+8. Geyser-Fabric - Latest 1.21
+   URL: https://geysermc.org/download/?platform=fabric
+   
+9. Floodgate-Fabric - Latest 1.21
+   URL: https://geysermc.org/download/?platform=fabric
+
+10. Hydraulic-Fabric - Build 93
+    Direct URL: https://download.geysermc.org/v2/projects/hydraulic/versions/1.0.0/builds/93/downloads/fabric
+
+INSTALLATION NOTES:
+- Download the .jar files and place them directly in this mods/ folder
+- Make sure all mods are compatible with Fabric 1.21.7
+- Check mod descriptions for any additional dependencies
+- Some mods may require additional configuration in the config/ folder
+
+After downloading all mods, run start.sh (Linux/Mac) or start.bat (Windows) to start the server.

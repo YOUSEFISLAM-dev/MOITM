@@ -1,0 +1,58 @@
+# Floodgate Configuration
+# https://github.com/GeyserMC/Floodgate
+
+# The prefix of Bedrock player usernames.
+# This should be a string that does not conflict with any existing Java usernames.
+# Geyser usually uses "." but you can change it here if needed.
+username-prefix: "."
+
+# Should Floodgate replace spaces in Bedrock usernames with underscores?
+replace-spaces: true
+
+# Database section
+# If you're using MySQL, you can configure it here
+# By default, Floodgate uses a local database
+database:
+  # The database type. Currently supported: h2, mysql
+  type: h2
+  # Connection details for MySQL (only used if type is mysql)
+  hostname: localhost
+  port: 3306
+  database: floodgate
+  username: root
+  password: ""
+
+# Player linking
+player-linking:
+  # Whether to enable the linking system
+  enabled: true
+  # The type of linking. Can be: "global", "per_server"
+  type: "global"
+  # How long until the linking code expires (in seconds)
+  link-code-timeout: 300
+
+# Bedrock player limits and restrictions
+# This allows you to have different limits for Bedrock players
+player-limit:
+  # Should we limit the amount of Bedrock players that can join?
+  enabled: false
+  # The maximum amount of Bedrock players
+  max-players: -1
+
+# Advanced options
+# Should Floodgate handle player data for Bedrock players differently?
+# This can help with compatibility issues
+handle-player-data: true
+
+# Should we send form data to Bedrock players?
+# This enables things like custom GUIs and forms
+send-form-data: true
+
+# Debug options
+debug: false
+
+# Floodgate's internal configuration
+# Don't change unless you know what you're doing
+internal:
+  # The version of this config file
+  config-version: 1
