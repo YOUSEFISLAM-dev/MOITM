@@ -1,0 +1,39 @@
+# Minecraft Server Files
+server.jar
+fabric-server-launcher.jar
+fabric-server-launcher.properties
+*.log
+logs/
+crash-reports/
+world/
+world_nether/
+world_the_end/
+
+# Temporary files
+.tmp
+*.tmp
+*.temp
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# Backup files
+*.bak
+*.backup
+
+# Player data (privacy)
+whitelist.json
+ops.json
+banned-*.json
+usercache.json
+usernamecache.json
+
+# Server specific (should be configured per deployment)
+server-icon.png
+eula.txt

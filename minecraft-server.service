@@ -1,0 +1,90 @@
+# Minecraft Fabric Server Systemd Service
+# 
+# Installation:
+# 1. Copy this file to /etc/systemd/system/minecraft-server.service
+# 2. Update User, Group, and WorkingDirectory paths
+# 3. Run: sudo systemctl daemon-reload
+# 4. Run: sudo systemctl enable minecraft-server
+# 5. Run: sudo systemctl start minecraft-server
+
+[Unit]
+Description=Minecraft Fabric Server 1.21.7
+Documentation=https://fabricmc.net/
+After=network.target
+Wants=network.target
+
+[Service]
+# Service type
+Type=simple
+
+# User and group (create a dedicated minecraft user)
+User=minecraft
+Group=minecraft
+
+# Working directory (update this path)
+WorkingDirectory=/opt/minecraft-server
+
+# Command to start the server
+ExecStart=/usr/bin/java \
+    -Xms2G -Xmx4G \
+    -XX:+UseG1GC \
+    -XX:+ParallelRefProcEnabled \
+    -XX:MaxGCPauseMillis=200 \
+    -XX:+UnlockExperimentalVMOptions \
+    -XX:+DisableExplicitGC \
+    -XX:+AlwaysPreTouch \
+    -XX:G1NewSizePercent=30 \
+    -XX:G1MaxNewSizePercent=40 \
+    -XX:G1HeapRegionSize=8M \
+    -XX:G1ReservePercent=20 \
+    -XX:G1HeapWastePercent=5 \
+    -XX:G1MixedGCCountTarget=4 \
+    -XX:InitiatingHeapOccupancyPercent=15 \
+    -XX:G1MixedGCLiveThresholdPercent=90 \
+    -XX:G1RSetUpdatingPauseTimePercent=5 \
+    -XX:SurvivorRatio=32 \
+    -XX:+PerfDisableSharedMem \
+    -XX:MaxTenuringThreshold=1 \
+    -jar fabric-server-launcher.jar --nogui
+
+# Restart behavior
+Restart=always
+RestartSec=10
+
+# Standard input/output
+StandardInput=null
+StandardOutput=journal
+StandardError=journal
+
+# Process management
+TimeoutStartSec=300
+TimeoutStopSec=30
+KillMode=mixed
+KillSignal=SIGTERM
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/minecraft-server
+
+# Resource limits
+LimitNOFILE=4096
+MemoryLimit=5G
+TasksMax=2048
+
+# Environment
+Environment="JAVA_HOME=/usr/lib/jvm/java-21-openjdk"
+
+[Install]
+WantedBy=multi-user.target
+
+# Usage instructions:
+#
+# Start server:    sudo systemctl start minecraft-server
+# Stop server:     sudo systemctl stop minecraft-server
+# Restart server:  sudo systemctl restart minecraft-server
+# Enable at boot:  sudo systemctl enable minecraft-server
+# Check status:    sudo systemctl status minecraft-server
+# View logs:       sudo journalctl -u minecraft-server -f
