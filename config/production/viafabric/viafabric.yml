@@ -1,0 +1,57 @@
+# Production ViaFabric configuration
+# Optimized for performance and stability
+
+enabled: true
+protocol-version: -1
+
+translation:
+  enabled: true
+  supported-versions:
+    - 578  # 1.15.2
+    - 735  # 1.16.1
+    - 736  # 1.16.2
+    - 751  # 1.16.4/1.16.5
+    - 755  # 1.17
+    - 756  # 1.17.1
+    - 757  # 1.18/1.18.1
+    - 758  # 1.18.2
+    - 759  # 1.19
+    - 760  # 1.19.1/1.19.2
+    - 761  # 1.19.3
+    - 762  # 1.19.4
+    - 763  # 1.20/1.20.1
+    - 764  # 1.20.2
+    - 765  # 1.20.3/1.20.4
+    - 766  # 1.20.5/1.20.6
+    - 767  # 1.21
+
+clientside:
+  enabled: true
+  hide-button: true
+  protocol-hack: true
+
+serverside:
+  enabled: true
+  block-unsupported: true
+  min-version: 578  # 1.15.2
+  max-version: 767  # 1.21
+
+debug:
+  enabled: false
+  log-translations: false
+  log-packets: false
+
+# Production performance settings
+performance:
+  thread-pool-size: 8
+  async-translation: true
+  cache-packets: true
+  max-cache-size: 2000
+
+compatibility:
+  legacy-mode: true
+  fix-entity-metadata: true
+  fix-item-data: true
+  chunk-fixes: true
+
+config-version: 1

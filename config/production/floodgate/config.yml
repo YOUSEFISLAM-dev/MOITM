@@ -1,0 +1,36 @@
+# Production Floodgate configuration
+# Enhanced security and performance
+
+username-prefix: "."
+
+player-data:
+  enabled: true
+  save-data: true
+
+replace-spaces: true
+disconnect-bedrock-players: false
+send-floodgate-data: false
+
+# Production security settings
+security:
+  enable-ip-forwarding: true
+  allowed-proxies:
+    - "127.0.0.1"
+    - "::1"
+
+# Production database settings (MySQL)
+database:
+  type: mysql
+  host: ${DB_HOST:-localhost}
+  port: ${DB_PORT:-3306}
+  database: ${DB_NAME:-floodgate_prod}
+  username: ${DB_USER:-floodgate_user}
+  password: ${DB_PASSWORD}
+
+# Performance settings
+advanced:
+  use-cache: true
+  cache-time: 120
+  check-for-updates: false
+
+config-version: 2
