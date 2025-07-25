@@ -1,0 +1,56 @@
+[Unit]
+Description=MOITM Advanced Cross-Play Minecraft Server
+After=network.target network-online.target
+Wants=network-online.target
+Documentation=https://github.com/YOUSEFISLAM-dev/MOITM
+
+[Service]
+Type=simple
+User=minecraft
+Group=minecraft
+WorkingDirectory=/opt/minecraft/MOITM
+ExecStartPre=/bin/bash -c 'mkdir -p logs world server'
+ExecStart=/opt/minecraft/MOITM/start.sh
+ExecStop=/bin/kill -SIGTERM $MAINPID
+ExecReload=/bin/kill -SIGHUP $MAINPID
+Restart=on-failure
+RestartSec=10
+TimeoutStartSec=300
+TimeoutStopSec=60
+
+# Resource limits
+LimitNOFILE=65536
+LimitAS=infinity
+
+# Environment variables
+Environment=ENVIRONMENT=production
+Environment=JAVA_OPTS=-Xmx6G -Xms2G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200
+Environment=MC_VERSION=1.21
+Environment=FABRIC_VERSION=0.15.11
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/minecraft/MOITM
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+
+# Network security
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=true
+LockPersonality=true
+MemoryDenyWriteExecute=false
+RestrictRealtime=true
+RestrictSUIDSGID=true
+RemoveIPC=true
+
+# Process restrictions
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+SystemCallFilter=~@debug @mount @cpu-emulation @obsolete @privileged @reboot @swap @raw-io
+
+[Install]
+WantedBy=multi-user.target

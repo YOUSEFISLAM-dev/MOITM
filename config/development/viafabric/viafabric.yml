@@ -1,0 +1,95 @@
+# ViaFabric Configuration for MOITM Server
+# Enables version compatibility across different Minecraft versions
+
+# Whether ViaFabric should be enabled
+enabled: true
+
+# The protocol version to use as the base
+# Set to -1 to use the server's protocol version
+protocol-version: -1
+
+# Version translation settings
+translation:
+  # Whether to enable protocol translation
+  enabled: true
+  
+  # Supported client versions (protocol versions)
+  # See https://wiki.vg/Protocol_version_numbers for version numbers
+  supported-versions:
+    - 758  # 1.18.2
+    - 759  # 1.19
+    - 760  # 1.19.1/1.19.2
+    - 761  # 1.19.3
+    - 762  # 1.19.4
+    - 763  # 1.20/1.20.1
+    - 764  # 1.20.2
+    - 765  # 1.20.3/1.20.4
+    - 766  # 1.20.5/1.20.6
+    - 767  # 1.21
+
+# Clientside fixes and improvements
+clientside:
+  # Whether to enable clientside improvements
+  enabled: true
+  
+  # Hide Via button in multiplayer screen
+  hide-button: false
+  
+  # Use protocol hack for older versions
+  protocol-hack: true
+
+# Server-side configuration
+serverside:
+  # Whether to enable server-side version support
+  enabled: true
+  
+  # Block connections from unsupported versions
+  block-unsupported: false
+  
+  # Minimum supported version (protocol number)
+  min-version: 578  # 1.15.2
+  
+  # Maximum supported version (protocol number)  
+  max-version: 767  # 1.21
+
+# Debug and logging
+debug:
+  # Whether to enable debug mode
+  enabled: false
+  
+  # Log protocol translations
+  log-translations: false
+  
+  # Log packet information
+  log-packets: false
+
+# Performance settings
+performance:
+  # Thread pool size for protocol translation
+  thread-pool-size: 4
+  
+  # Enable async protocol translation
+  async-translation: true
+  
+  # Cache translated packets
+  cache-packets: true
+  
+  # Maximum cache size
+  max-cache-size: 1000
+
+# Compatibility settings
+compatibility:
+  # Enable compatibility mode for older versions
+  legacy-mode: true
+  
+  # Fix entity metadata for older clients
+  fix-entity-metadata: true
+  
+  # Fix item data for older clients
+  fix-item-data: true
+  
+  # Enable chunk loading fixes
+  chunk-fixes: true
+
+# Config version
+config-version: 1

@@ -1,0 +1,114 @@
+version: '3.8'
+
+services:
+  minecraft-server:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: moitm-server
+    restart: unless-stopped
+    ports:
+      - "${JAVA_PORT:-25565}:25565"     # Java Edition
+      - "${BEDROCK_PORT:-19132}:19132/udp"  # Bedrock Edition
+      - "${WEB_PORT:-8080}:8080"        # Web Client
+      - "${RCON_PORT:-25575}:25575"     # RCON (optional)
+    volumes:
+      # Persistent data
+      - minecraft_world:/opt/minecraft/world
+      - minecraft_logs:/opt/minecraft/logs
+      - ./config:/opt/minecraft/config:ro
+      # Optional mod overrides
+      - ./mods/optional:/opt/minecraft/mods/optional:ro
+    environment:
+      - ENVIRONMENT=${ENVIRONMENT:-production}
+      - JAVA_OPTS=${JAVA_OPTS:--Xmx6G -Xms2G -XX:+UseG1GC}
+      - MC_VERSION=${MC_VERSION:-1.21}
+      - FABRIC_VERSION=${FABRIC_VERSION:-0.15.11}
+      - TZ=${TZ:-UTC}
+    mem_limit: ${MEM_LIMIT:-8g}
+    mem_reservation: ${MEM_RESERVATION:-2g}
+    networks:
+      - minecraft
+    depends_on:
+      - web-proxy
+    healthcheck:
+      test: ["CMD", "netstat", "-an", "|", "grep", ":25565"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+
+  web-proxy:
+    image: nginx:alpine
+    container_name: moitm-web-proxy
+    restart: unless-stopped
+    ports:
+      - "${HTTP_PORT:-80}:80"
+      - "${HTTPS_PORT:-443}:443"
+    volumes:
+      - ./web-client:/usr/share/nginx/html:ro
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./config/nginx/ssl:/etc/nginx/ssl:ro
+      - nginx_cache:/var/cache/nginx
+    environment:
+      - TZ=${TZ:-UTC}
+    networks:
+      - minecraft
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  redis-cache:
+    image: redis:7-alpine
+    container_name: moitm-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    networks:
+      - minecraft
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  monitoring:
+    image: prom/prometheus:latest
+    container_name: moitm-monitoring
+    restart: unless-stopped
+    ports:
+      - "${MONITORING_PORT:-9090}:9090"
+    volumes:
+      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    networks:
+      - minecraft
+
+volumes:
+  minecraft_world:
+    driver: local
+  minecraft_logs:
+    driver: local
+  nginx_cache:
+    driver: local
+  redis_data:
+    driver: local
+  prometheus_data:
+    driver: local
+
+networks:
+  minecraft:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
