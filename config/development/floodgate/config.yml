@@ -1,0 +1,63 @@
+# Floodgate Configuration for MOITM Server
+# Handles cross-platform authentication
+
+# Floodgate prepends a prefix to bedrock usernames to avoid conflicts with java usernames
+# You can also use "" to remove the prefix, but this can cause conflicts
+# If you use "", make sure that Geyser's `usernames-must-be-ascii` setting is set to false
+# See https://github.com/GeyserMC/Floodgate/wiki/Configuration#username-prefix
+username-prefix: "."
+
+# Should player data be saved and loaded for Bedrock players?
+# When enabled, Bedrock players will have their data saved and loaded just like Java players
+# When disabled, Bedrock players will not have their data saved and will always start fresh
+player-data:
+  enabled: true
+  save-data: true
+
+# Should Floodgate handle Bedrock player logins differently?
+# When enabled, Bedrock players will skip the normal authentication process
+# This is required for Bedrock players to join when using Floodgate
+replace-spaces: true
+
+# Disconnect Bedrock players who don't have a linked Java account
+# When enabled, Bedrock players must have a linked Java account to join
+# When disabled, Bedrock players can join without a linked Java account
+disconnect-bedrock-players: false
+
+# Should we send a form to Bedrock players on join?
+# This can be used to collect additional information or provide instructions
+send-floodgate-data: false
+
+# Security settings
+security:
+  # Enable IP forwarding for proxies
+  enable-ip-forwarding: false
+  
+  # Allowed IPs for connections (empty = allow all)
+  allowed-proxies: []
+
+# Database settings (for linked accounts)
+database:
+  # Database type: h2, mysql, sqlite
+  type: h2
+  
+  # Database connection settings (for mysql)
+  host: localhost
+  port: 3306
+  database: floodgate
+  username: root
+  password: ""
+
+# Advanced options
+advanced:
+  # Whether to use the cache for linked accounts
+  use-cache: true
+  
+  # Cache time in minutes
+  cache-time: 60
+  
+  # Whether to check for updates
+  check-for-updates: true
+
+# Config version (do not change)
+config-version: 2
