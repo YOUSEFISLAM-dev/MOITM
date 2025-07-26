@@ -101,4 +101,4 @@ The server uses environment-based configuration:
 
 ## License
 
-[Add your license here]
+ANY ONE CANT USE OR COPY OR INTERCAT THIS EXCEPT THE OWNER OF THIS REPOSITORY 
